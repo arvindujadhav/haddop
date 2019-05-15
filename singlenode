@@ -1,3 +1,5 @@
+#perform this operation usung ubuntu16
+
 # Install Java
 sudo apt-get update
 sudo apt install default-jdk -y
