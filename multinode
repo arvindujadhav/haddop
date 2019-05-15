@@ -217,6 +217,9 @@ sudo chown -R hduser:hadoop $HADOOP_HOME
 cd /usr/local/hadoop/etc/hadoop
 For all nodes
 scp core-site.xml hdfs-site.xml mapred-site.xml yarn-site.xml slaves rm:/usr/local/hadoop/etc/hadoop
+scp core-site.xml hdfs-site.xml mapred-site.xml yarn-site.xml slaves 1dn:/usr/local/hadoop/etc/hadoop
+scp core-site.xml hdfs-site.xml mapred-site.xml yarn-site.xml slaves 2dn:/usr/local/hadoop/etc/hadoop
+scp core-site.xml hdfs-site.xml mapred-site.xml yarn-site.xml slaves 3dn:/usr/local/hadoop/etc/hadoop
  
 
 
