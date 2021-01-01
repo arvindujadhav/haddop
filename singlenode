@@ -31,11 +31,11 @@ sudo sysctl -p
 
 #Download Hadoop
 
-wget -c https://downloads.apache.org/hadoop/common/hadoop-3.1.4/hadoop-3.1.4.tar.gz
+wget -c https://archive.apache.org/dist/hadoop/core/hadoop-2.9.0/hadoop-2.9.0.tar.gz
 
 #Extract and Install Hadoop tar ball
-tar -xzvf hadoop-3.1.4.tar.gz
-sudo mv hadoop-3.1.4 /usr/local/hadoop
+tar -xzvf hadoop-2.9.0.tar.gz
+sudo mv hadoop-2.9.0 /usr/local/hadoop
 sudo chown hduser:hadoop -R /usr/local/hadoop
 
 # Set Enviornment Variable
