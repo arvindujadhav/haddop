@@ -31,7 +31,7 @@ sudo sysctl -p
 
 #Download Hadoop
 
-wget -c https://www-us.apache.org/dist/hadoop/common/hadoop-2.9.2/hadoop-2.9.2.tar.gz
+wget -c https://www.apache.org/dyn/closer.cgi/hadoop/common/hadoop-3.1.4/hadoop-3.1.4-src.tar.gz
 
 #Extract and Install Hadoop tar ball
 tar -xzvf hadoop-2.9.2.tar.gz
