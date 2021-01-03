@@ -8,7 +8,8 @@ ssh -i Downloads/file.pem ubuntu@public_dns_address
 sudo apt-get update && sudo apt-get dist-upgrade -y
 
 # Copy public key on to the DataCenter main server
-scp -i multi.pem multi.pem ubuntu@public_dns:~/.ssh
+LINUX -   scp -i multi.pem multi.pem ubuntu@public_dns:~/.ssh
+Winodws   wesendit   application   
 
 # Create a Hadoop user for accessing HDFS
 sudo addgroup hadoop
@@ -18,10 +19,10 @@ sudo su hduser
 
 # Create local key
 ssh-keygen
+go to .ssh directory
 cat id_rsa.pub >> authorized_keys
 
 # Copy the instance public key (multi.pem) to hduser's directory
-sudo su
 cp /home/ubuntu/.ssh/multi.pem /home/hduser/.ssh/
 chown hduser:hadoop /home/hduser/.ssh/multi.pem
 exit
@@ -41,7 +42,7 @@ sudo chown hduser:hadoop -R /usr/local/hadoop
 
 # Set Enviornment Variable
 readlink -f $(which java)
-nano ~/.bashrc
+sudo vi ~/.bashrc
 # -- HADOOP ENVIRONMENT VARIABLES START -- #
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 export HADOOP_HOME=/usr/local/hadoop
@@ -61,14 +62,14 @@ $ source ~/.bashrc
 cd /usr/local/hadoop/etc/hadoop/
 
 #Update hadoop-env.sh
-nano hadoop-env.sh
+sudo vi hadoop-env.sh
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 export HADOOP_LOG_DIR=/var/log/hadoop
 sudo mkdir /var/log/hadoop/
 sudo chown -R hduser:hadoop /var/log/hadoop
 
 #Disable IPV6
-sudo nano /etc/sysctl.conf
+sudo vi /etc/sysctl.conf
 net.ipv6.conf.all.disable_ipv6 = 1
 net.ipv6.conf.default.disable_ipv6 = 1
 net.ipv6.conf.lo.disable_ipv6 = 1
@@ -108,9 +109,8 @@ sudo sysctl vm.swappiness=1
 timedatectl status
 timedatectl list-timezones
 sudo timedatectl set-timezone Asia/Kolkata
-sudo ntpq -p
 sudo apt install ntp -y
-sudo nano /etc/ntp.conf
+sudo vi /etc/ntp.conf
 
 ##Configure SSH Password less logins
 sudo su -c touch /home/hduser/.ssh/config; echo "Host *\n StrictHostKeyChecking no\n
@@ -118,7 +118,7 @@ UserKnownHostsFile=/dev/null" > /home/hduser/.ssh/config
 sudo service ssh restart
 
 # Configure .profile (make sure you are on NN) 
- nano .profile
+ sudo vi .profile
  eval `ssh-agent` ssh-add /home/hduser/.ssh/abc.pem
 
  source .profile
@@ -127,7 +127,7 @@ sudo service ssh restart
 ----------****** Create a snapshot at this point ******-----------------
 Create 4 nodes from this image
 
-#sudo nano /etc/hosts and include these lines:FQDN
+#sudo vi /etc/hosts and include these lines:FQDN
 172.31.29.56 ip-172-31-29-56.ec2.internal nn
 172.31.27.96 ip-172-31-27-96.ec2.internal rm
 172.31.18.137 ip-172-31-18-137.ec2.internal 1dn
@@ -139,7 +139,7 @@ Do this for all nodes
 
 # Install and Configure dsh
 sudo apt install dsh -y
-sudo nano /etc/dsh/machines.list
+sudo vi /etc/dsh/machines.list
 #localhost
 nn
 rm
@@ -152,16 +152,16 @@ dsh -a source .profile
 cd /usr/local/hadoop/etc/hadoop
 
 # Configure masters and slaves
-nano masters
+sudo vi masters
 rm
 
-nano slaves
+sudo vi slaves
 1dn
 2dn
 3dn
 
 #Update core-site.xml
-nano core-site.xml
+sudo vi core-site.xml
 <property>
     <name>fs.defaultFS</name>
     <value>hdfs://nn:9000</value>
@@ -169,7 +169,7 @@ nano core-site.xml
 
 #Update hdfs-site.xml on name node 
 mkdir -p /usr/local/hadoop/data/hdfs/namenode
-nano hdfs-site.xml
+sudo vi hdfs-site.xml
 <property>
     <name>dfs.replication</name>
     <value>3</value>
@@ -190,7 +190,7 @@ dsh -m 1dn,2dn,3dn mkdir -p /usr/local/hadoop/data/hdfs/datanode
 
 
 #Update yarn-site.xml
-nano yarn-site.xml
+sudo vi yarn-site.xml
 <property>
     <name>yarn.nodemanager.aux-services</name>
     <value>mapreduce_shuffle</value>
@@ -203,7 +203,7 @@ nano yarn-site.xml
 #Update mapred-site.xml
 
 cp mapred-site.xml.template mapred-site.xml
-nano mapred-site.xml
+sudo vi mapred-site.xml
 <property>
     <name>mapreduce.jobtracker.address</name>
     <value>rm:54311</value>
@@ -243,7 +243,10 @@ hdfs dfs -put hadoop-2.8.2.tar.gz /user/ubuntu
 hdfs dfs -ls 
 hdfs dfs -ls -R
 
-yarn jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.8.2.jar pi 5 10
+hadoop jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-*examples*.jar pi 5 10
 
 
-.
+stop-dfs.sh
+stop yarn.sh.
+
+
